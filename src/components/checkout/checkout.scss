@@ -2,6 +2,7 @@ $buttonBoxShadow: 0px 3px 5px 2px black;
 $buttonHeight: 35px;
 
 .checkoutContainer {
+  position: relative;
   padding: 20px;
   width: 50%;
 }
@@ -33,6 +34,32 @@ $buttonHeight: 35px;
   cursor: pointer;
 }
 
-.checkoutContent{
-    background-color: aliceblue;
+.checkoutContent {
+  background-color: aliceblue;
+}
+
+.dialogTitle {
+  font-size: 18px;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.dialogButtonContainer {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.dialogButton {
+  height: 30px;
+  width: 70px;
+  color: purple;
+  background: transparent;
+  outline: none;
+  border: unset;
+}
+
+.dialogButton:hover{
+  cursor: pointer;
 }

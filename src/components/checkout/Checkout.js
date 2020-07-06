@@ -2,10 +2,13 @@ import React from 'react';
 import './checkout.scss'
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import { clearCart } from '../../store/appActions';
+import { bindActionCreators } from "redux";
 
 const Checkout = (props) => {
     const history = useHistory()
-    const { state } = props;
+    const { state,clearcart } = props;
     const { userDescription } = state
     const currentUser = userDescription.find(user => user.isLoggedIn);
     const { categories } = currentUser;
@@ -38,6 +41,18 @@ const Checkout = (props) => {
         )
     });
 
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = (value) => {
+        setOpen(false);
+    };
+    const actionHandleClose = (value) => {
+        setOpen(false);
+        clearcart();
+        history.push('/layout/products')
+    }
 
     return (
         <div className='checkoutContainer'>
@@ -61,9 +76,19 @@ const Checkout = (props) => {
                     </span>
                 </div>
             </div>
-            <button id='placeOrderBtn'>PLACE ORDER</button>
+            <button id='placeOrderBtn' onClick={() => handleClickOpen()} >PLACE ORDER</button>
+            <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+                <div className='dialogTitle'>Thank you for the purchase</div>
+                <div className='dialogButtonContainer'><button className='dialogButton' onClick={actionHandleClose}>OKAY</button></div>
+            </Dialog>
         </div>
     )
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        clearcart: clearCart
+    }, dispatch)
 }
 
 const mapStateToProps = (state) => {
@@ -72,4 +97,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
