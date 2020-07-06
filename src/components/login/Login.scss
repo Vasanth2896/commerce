@@ -1,0 +1,45 @@
+$flexDisplay: flex;
+$flexCenterJustify: center;
+$tenPixels : 10px;
+
+.loginFormWrapper{
+    background: aliceblue;
+    height: inherit;
+    display: $flexDisplay;
+    justify-content: $flexCenterJustify;
+    align-items: center;
+  }
+  
+.loginForm {
+  height: 200px;
+  width: 300px;
+  flex-direction: column;
+  display: $flexDisplay;
+  justify-content: $flexCenterJustify;
+}
+
+.loginBtn {
+  height: 30px;
+  width: 100px;
+  background: transparent;
+  border: purple 2px solid;
+  color: purple;
+  font-weight: bold;
+  margin: 0px auto;
+}
+
+.loginInputField {
+  border-radius: $tenPixels;
+  height: $tenPixels;
+  outline: none;
+  padding: $tenPixels;
+  margin : $tenPixels 0px;
+}
+
+.loginInputField:focus {
+  background-color: #80808014;
+}
+
+.loginBtn:hover{
+  cursor: pointer;
+}

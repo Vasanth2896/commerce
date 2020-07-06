@@ -1,0 +1,38 @@
+$buttonBoxShadow: 0px 3px 5px 2px black;
+$buttonHeight: 35px;
+
+.checkoutContainer {
+  padding: 20px;
+  width: 50%;
+}
+
+#backToCartBtn {
+  height: $buttonHeight;
+  background: transparent;
+  border: unset;
+  outline: none;
+  box-shadow: $buttonBoxShadow;
+  margin-bottom: 15px;
+}
+
+#backToCartBtn:hover {
+  cursor: pointer;
+}
+
+#placeOrderBtn {
+  height: $buttonHeight;
+  color: white;
+  background-color: #3f51b5;
+  border: unset;
+  outline: none;
+  box-shadow: $buttonBoxShadow;
+  margin-top: 15px;
+}
+
+#placeOrderBtn:hover {
+  cursor: pointer;
+}
+
+.checkoutContent{
+    background-color: aliceblue;
+}

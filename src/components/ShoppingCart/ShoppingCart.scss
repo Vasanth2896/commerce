@@ -1,0 +1,68 @@
+$buttonHeight: 35px;
+
+.shoppingCartContainer {
+  padding: 10px;
+  margin-right: 40%;
+}
+
+.shoppingCartButtons {
+  height: $buttonHeight;
+  background: transparent;
+  border: unset;
+  outline: none;
+  box-shadow: 0px 3px 5px 2px black;
+}
+
+.shoppingCartButtons:hover {
+  cursor: pointer;
+}
+
+.shoppingCartTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.broughtItemTable {
+  width: 100%;
+  text-align: center;
+}
+
+#shoppingCartCheckoutBtn {
+  height: $buttonHeight;
+  color: white;
+  background-color: #3f51b5;
+  border: unset;
+  outline: none;
+  box-shadow: 0px 3px 5px 2px black;
+}
+
+#shoppingCartCheckoutBtn:hover{
+  cursor: pointer;
+}
+
+.addToCartButton {
+  width: 200px;
+  height: 50px;
+}
+
+.addToCartButton:hover {
+  cursor: pointer;
+}
+
+.operationalButton {
+  height: 50px;
+  width: 50px;
+  font-size: 18px;
+}
+
+.operationalButton:hover {
+  cursor: pointer;
+}
+.operationalButtonContainer {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

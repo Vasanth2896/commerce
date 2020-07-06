@@ -1,0 +1,54 @@
+.navigationBar {
+  height: 80px;
+  background-color: #3e51b5;
+  color: white;
+
+  .navigationContentWrapper {
+    margin: 0px 20px;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logoutBtn {
+    height: 45px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    font-weight: bold;
+  }
+
+  .logoutBtn:hover {
+    cursor: pointer;
+  }
+
+  .shoppingIconContainer {
+    position: relative;
+  }
+
+  #shoppingCartNotifier {
+    position: absolute;
+    bottom: 10px;
+    left: 8px;
+    background-color: red;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .shoppingCartIcon:hover{
+    cursor: pointer;
+  }
+
+  #exitContainer {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
