@@ -3,17 +3,14 @@ import './Products.scss'
 import { connect } from 'react-redux';
 import { addToCart } from '../../store/appActions';
 import { bindActionCreators } from "redux";
-
+import ProductFilter from './productFilter/ProductFilter'
 
 const Products = (props) => {
-    
     const { state, addtocart } = props;
     const { userDescription } = state
     const currentUser = userDescription.find(user => user.isLoggedIn);
     const { categories } = currentUser;
-    const products = categories.map(product => product['products']);
-    const productList = [].concat.apply([], products);
-
+    const productList = categories.filter(categoryTypes => categoryTypes.isChecked).map(product => product['products']).flat();
     const productStack = productList.map(productStackItem => {
         return (
             <div key={productStackItem.id} className='displayedProducts'>
@@ -21,7 +18,7 @@ const Products = (props) => {
                     <h4>{productStackItem.name}</h4>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <img src={productStackItem.imgSrc} />
+                    <img src={productStackItem.imgSrc} alt='' />
                 </div>
                 <div style={{ padding: '10px', fontSize: '18px' }}>
                     <span>{productStackItem.brand}</span>
@@ -30,7 +27,8 @@ const Products = (props) => {
                     </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    {productStackItem.addedToCart === 0 && <button className='addToCartButton' style={{ width: '200px', height: '50px' }} onClick={() => addtocart(productStackItem.catId, productStackItem.id, 'add')} >Add to Cart</button>}
+                    {productStackItem.addedToCart === 0 &&
+                        <button className='addToCartButton' onClick={() => addtocart(productStackItem.catId, productStackItem.id, 'add')} >Add to Cart</button>}
                     {
                         productStackItem.addedToCart > 0 && <div className='operationalButtonContainer'>
                             <button className='operationalButton' onClick={() => addtocart(productStackItem.catId, productStackItem.id, 'sub')} >-</button>
@@ -43,31 +41,9 @@ const Products = (props) => {
         );
     });
 
-    const productFilter = categories.map(categoryType => {
-        return (
-            <li key={categoryType.id}>
-                <div>
-                    <span>{categoryType.label}</span>
-                    <input type='checkbox'></input>
-                </div>
-            </li >
-
-        )
-    });
-
     return (
         <div className='productContainer'>
-            <div>
-                <ul className='categoriesList'>
-                    <li>
-                        <div>
-                            <span>All Categories</span>
-                            <input type='checkbox' ></input>
-                        </div>
-                    </li>
-                    {productFilter}
-                </ul>
-            </div>
+            <ProductFilter />
             <div className='productDisplayContainer'>
                 {productStack}
             </div>
@@ -75,7 +51,7 @@ const Products = (props) => {
     )
 }
 
-const mapStateToprops = (state) => {
+const mapStateToProps = (state) => {
     return {
         state: state.appReducer
     }
@@ -87,5 +63,5 @@ const mapDispatchToProps = (dispatch) => {
     }, dispatch)
 }
 
-export default connect(mapStateToprops, mapDispatchToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);
 

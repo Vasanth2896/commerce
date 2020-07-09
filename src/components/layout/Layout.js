@@ -10,16 +10,12 @@ const Layout = () => {
     return (
         <div>
             <Navbar />
-            <Route path='/layout/products'>
-                <Products />
+            <Route path='/layout/products' component={Products}>
             </Route>
-            <Route path='/layout/shopping-cart'>
-                <ShoppingCart />
+            <Route path='/layout/shopping-cart' component={ShoppingCart}>
             </Route>
-            <Route path='/layout/checkout'>
-                <Checkout />
+            <Route path='/layout/checkout' component={Checkout}>
             </Route>
-
         </div>
     )
 }

@@ -17,13 +17,9 @@ const Navbar = (props) => {
     const { userDescription } = state;
     const currentUser = JSON.parse(JSON.stringify(userDescription.find(user => user.isLoggedIn)));
     const { categories } = currentUser;
-    const products = categories.map(product => product['products']);
-    const productList = [].concat.apply([], products);
-    const broughtProducts = productList.filter(product => product.addedToCart);
-    const totalItemsList = broughtProducts.map(product => product.addedToCart);
-    const totalItems = totalItemsList.reduce((a, b) => { return a + b }, 0);
+    const products = categories.map(product => product['products']).flat().filter(prod => prod.addedToCart);
+    const totalItems = products.map(productItems => productItems.addedToCart).reduce((a, b) => { return a + b }, 0);
     const [menu, setMenu] = useState(null);
-
 
     const handleClick = (e) => {
         setMenu(e.currentTarget);
@@ -35,11 +31,7 @@ const Navbar = (props) => {
         history.push('/');
     };
 
-    const redirectToCart = () => {
-        history.push('/layout/shopping-cart');
-    }
-
-    return (
+   return (
         <nav className='navigationBar'>
             <div className="navigationContentWrapper">
                 <div>
@@ -56,7 +48,7 @@ const Navbar = (props) => {
                         <MenuItem onClick={handleClose} >logout</MenuItem>
                     </Menu>
                     <div className='shoppingIconContainer'>
-                        <FontAwesomeIcon icon={faShoppingCart} className='shoppingCartIcon' onClick={redirectToCart} />
+                        <FontAwesomeIcon icon={faShoppingCart} className='shoppingCartIcon' onClick={() => history.push('/layout/shopping-cart')} />
                         {totalItems !== 0 && <span id='shoppingCartNotifier'>{totalItems}</span>}
                     </div>
                 </div>

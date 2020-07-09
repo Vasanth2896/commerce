@@ -18,10 +18,10 @@ $buttonHeight: 35px;
 }
 
 .shoppingCartTitle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 20px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0px;
 }
 
 .broughtItemTable {
@@ -38,29 +38,29 @@ $buttonHeight: 35px;
   box-shadow: 0px 3px 5px 2px black;
 }
 
-#shoppingCartCheckoutBtn:hover{
+#shoppingCartCheckoutBtn:hover {
   cursor: pointer;
 }
 
 .addToCartButton {
   width: 200px;
-  height: 50px;
+  height: 40px;
 }
 
 .addToCartButton:hover {
   cursor: pointer;
 }
 
-.operationalButton {
-  height: 50px;
+.shoppingCartOperationalButton{
+  height: 30px;
   width: 50px;
   font-size: 18px;
 }
 
-.operationalButton:hover {
+.shoppingCartOperationalButton:hover {
   cursor: pointer;
 }
-.operationalButtonContainer {
+.shoppingCartOperationalButtonContainer {
   width: 80%;
   display: flex;
   align-items: center;

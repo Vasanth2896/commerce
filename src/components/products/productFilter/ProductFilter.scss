@@ -1,0 +1,20 @@
+.categoriesList {
+  list-style-type: none;
+
+  div {
+    height: 20px;
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 30px;
+  }
+
+  input:hover {
+    cursor: pointer;
+  }
+}

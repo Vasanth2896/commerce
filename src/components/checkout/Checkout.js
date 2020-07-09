@@ -1,26 +1,19 @@
 import React from 'react';
 import './checkout.scss'
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import { clearCart } from '../../store/appActions';
 import { bindActionCreators } from "redux";
 
 const Checkout = (props) => {
-    const history = useHistory()
-    const { state,clearcart } = props;
+    const { state, clearcart, history } = props;
     const { userDescription } = state
     const currentUser = userDescription.find(user => user.isLoggedIn);
     const { categories } = currentUser;
-    const products = categories.map(product => product['products']);
-    const productList = [].concat.apply([], products);
-    const broughtProducts = productList.filter(product => product.addedToCart);
-    const broughtProductsPriceList = broughtProducts.map(product => product.quantityPrice)
-    const totalItemsList = broughtProducts.map(product => product.addedToCart);
-    const totalItems = totalItemsList.reduce((a, b) => { return a + b }, 0);
-    const totalPrice = broughtProductsPriceList.reduce((a, b) => { return a + b }, 0);
-
-    const renderBroughtProducts = broughtProducts.map(broughtProductItems => {
+    const products = categories.map(product => product['products']).flat().filter(prod => prod.addedToCart);
+    const totalPrice = products.map(productPrice => productPrice.quantityPrice).reduce((a, b) => { return a + b }, 0);
+    const totalItems = products.map(productItems => productItems.addedToCart).reduce((a, b) => { return a + b }, 0);
+    const renderProducts = products.map(broughtProductItems => {
         return (
             <div key={broughtProductItems.id} style={{
                 padding: '10px', fontWeight: 'bold',
@@ -62,7 +55,7 @@ const Checkout = (props) => {
                     <h3>Order Summary</h3>
                     <p>You have {totalItems} Items in the shopping cart</p>
                 </div>
-                {renderBroughtProducts}
+                {renderProducts}
                 <div style={{
                     padding: '10px', display: 'flex', alignItems: 'center',
                     justifyContent: 'space-between',
