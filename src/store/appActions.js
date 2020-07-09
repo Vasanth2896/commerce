@@ -1,20 +1,22 @@
 import { productSeed } from '../assets/utils/productSeed'
 export const UPDATE_STATE = "UPDATE_STATE"
 export const initialState = {
-    login: {
-        id: 0,
-        username: '',
-        email: '',
-        categories: [],
-        isLoggedIn: false
-    },
+    // login: {
+    //     id: 0,
+    //     username: '',
+    //     email: '',
+    //     categories: [],
+    //     isLoggedIn: false
+    // },
     userDescription: JSON.parse(sessionStorage.getItem('userDescription')) || [],
 }
 
-const newUserCategories = () => JSON.parse(JSON.stringify(productSeed)).map(function (el) {
-    const o = Object.assign({}, el);
-    o.isChecked = true;
-    return o;
+// Have username and email alone,delete id,categories and isLoggedIn from redux state
+
+const newUserCategories = () => JSON.parse(JSON.stringify(productSeed)).map(function (productSeedItems) {
+    const checkState = Object.assign({}, productSeedItems);
+    checkState.isChecked = true;
+    return checkState;
 })
 
 export function app_onChange(name, value) {
@@ -23,27 +25,41 @@ export function app_onChange(name, value) {
     }
 }
 
-export function onSubmit() {
+export function onSubmit(loginData) {
     return (dispatch, getState) => {
-        const { login, userDescription } = getState().appReducer;
-        const actionLogin = { ...login }
+        const { userDescription } = getState().appReducer;
         const actionUserDescription = JSON.parse(JSON.stringify(userDescription));
-        const userExistence = actionUserDescription.find(actionUser => actionUser.email === actionLogin.email);
-        actionLogin.categories = userExistence ? userExistence.categories : newUserCategories()
+        const userExistence = actionUserDescription.find(actionUser => actionUser.email === loginData.email);
         if (userExistence) {
-            actionLogin.username = login.username;
-            actionLogin.email = login.email;
-            actionLogin.categories.map(item => item.isChecked = true);
-            actionUserDescription.splice(actionUserDescription.indexOf(userExistence), 1, actionLogin);
+            userExistence.isLoggedIn = true;
+            Object.assign(userExistence, loginData);
         }
         else {
+            const actionLogin = Object.assign(loginData, { id: 0, isLoggedIn: true, categories: newUserCategories() });
             actionUserDescription.push(actionLogin);
+            actionLogin.id = actionUserDescription.indexOf(actionLogin);
         }
-        actionLogin.isLoggedIn = true;
-        actionLogin.id = actionUserDescription.indexOf(actionLogin) + 1;
-        dispatch(app_onChange('login', { id: 0, username: '', email: '', categories: [], isLoggedIn: false }));
         dispatch(app_onChange('userDescription', actionUserDescription));
         setSessionStorage(actionUserDescription);
+
+        // const actionLogin = { ...login }
+        // const actionUserDescription = JSON.parse(JSON.stringify(userDescription));
+        // const userExistence = actionUserDescription.find(actionUser => actionUser.email === actionLogin.email);
+        // actionLogin.categories = userExistence ? userExistence.categories : newUserCategories()
+        // if (userExistence) {
+        //     actionLogin.username = login.username;
+        //     actionLogin.email = login.email;
+        //     actionLogin.categories.map(item => item.isChecked = true);
+        //     actionUserDescription.splice(actionUserDescription.indexOf(userExistence), 1, actionLogin);
+        // }
+        // else {
+        //     actionUserDescription.push(actionLogin);
+        // }
+        // actionLogin.isLoggedIn = true;
+        // actionLogin.id = actionUserDescription.indexOf(actionLogin) + 1;
+        // dispatch(app_onChange('login', { id: 0, username: '', email: '', categories: [], isLoggedIn: false }));
+        // dispatch(app_onChange('userDescription', actionUserDescription));
+        // setSessionStorage(actionUserDescription);
     };
 }
 
@@ -51,12 +67,21 @@ export function onLogout(id) {
     return (dispatch, getState) => {
         const { userDescription } = getState().appReducer;
         const actionUserDescription = JSON.parse(JSON.stringify(userDescription));
-        const loggedInUserIndex = id - 1;
-        const loggedInUser = { ...actionUserDescription[loggedInUserIndex] };
+        const loggedInUser = { ...actionUserDescription[id] };
         loggedInUser.isLoggedIn = false;
-        actionUserDescription.splice(loggedInUserIndex, 1, loggedInUser);
+        actionUserDescription.splice(id, 1, loggedInUser);
         dispatch(app_onChange('userDescription', actionUserDescription));
         setSessionStorage(actionUserDescription);
+
+
+        // const { userDescription } = getState().appReducer;
+        // const actionUserDescription = JSON.parse(JSON.stringify(userDescription));
+        // const loggedInUserIndex = id - 1;
+        // const loggedInUser = { ...actionUserDescription[loggedInUserIndex] };
+        // loggedInUser.isLoggedIn = false;
+        // actionUserDescription.splice(loggedInUserIndex, 1, loggedInUser);
+        // dispatch(app_onChange('userDescription', actionUserDescription));
+        // setSessionStorage(actionUserDescription);
     }
 }
 

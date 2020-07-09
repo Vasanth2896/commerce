@@ -41,7 +41,7 @@ const ProductFilter = (props) => {
                 <li>
                     <div>
                         <label>All Categories</label>
-                        <input type='checkbox' name='allCategories' checked={allCategories}></input>
+                        <input type='checkbox' name='allCategories' checked={allCategories} readOnly></input>
                     </div>
                 </li>
                 {renderFilter}

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { addToCart, clearCart } from '../../store/appActions';
 
 const ShoppingCart = (props) => {
-    const { state, addtocart, clearcart, history } = props;
+    const { state, addToCart, clearCart, history } = props;
     const { userDescription } = state
     const currentUser = userDescription.find(user => user.isLoggedIn);
     const { categories } = currentUser;
@@ -20,7 +20,7 @@ const ShoppingCart = (props) => {
             <div className='shoppingCartList'>
                 <div className='shoppingCartTitle'>
                     <p>You have {totalItems} items in your shopping cart</p>
-                    <button className='shoppingCartButtons' onClick={() => clearcart()}>CLEAR SHOPPING CART</button>
+                    <button className='shoppingCartButtons' onClick={() => clearCart()}>CLEAR SHOPPING CART</button>
                 </div>
                 {products.length > 0 &&
                     <div >
@@ -43,10 +43,10 @@ const ShoppingCart = (props) => {
                                                 {broughtProductItem.addedToCart > 0 && <div className='shoppingCartOperationalButtonContainer'>
                                                     <button
                                                         className='shoppingCartOperationalButton'
-                                                        onClick={() => addtocart(broughtProductItem.catId, broughtProductItem.id, 'sub')} >-</button>
+                                                        onClick={() => addToCart(broughtProductItem.catId, broughtProductItem.id, 'sub')} >-</button>
                                                     <span>{broughtProductItem.addedToCart}</span>
                                                     <button className='shoppingCartOperationalButton'
-                                                        onClick={() => addtocart(broughtProductItem.catId, broughtProductItem.id, 'add')}>+</button>
+                                                        onClick={() => addToCart(broughtProductItem.catId, broughtProductItem.id, 'add')}>+</button>
                                                 </div>
                                                 }
                                             </div></td>
@@ -86,8 +86,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        addtocart: addToCart,
-        clearcart: clearCart
+        addToCart: addToCart,
+        clearCart: clearCart
     }, dispatch)
 }
 
