@@ -1,7 +1,3 @@
-// import { createStore } from 'redux'
-// export const store = createStore(allReducer);
-
-
 import { createStore, compose, applyMiddleware } from "redux";
 import { allReducer } from "./reducer";
 import { routerMiddleware } from "react-router-redux";
