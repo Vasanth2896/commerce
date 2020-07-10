@@ -9,8 +9,9 @@ export const initialState = {
     //     isLoggedIn: false
     // },
     userDescription: JSON.parse(sessionStorage.getItem('userDescription')) || [],
-    currentUser: null ? {} : JSON.parse(sessionStorage.getItem('userDescription')).find(user => user.isLoggedIn)
+    currentUser: JSON.parse(sessionStorage.getItem('userDescription')) ? JSON.parse(sessionStorage.getItem('userDescription')).find(user => user.isLoggedIn) : {}
 }
+
 
 // Have username and email alone,delete id,categories and isLoggedIn from redux state
 

@@ -10,6 +10,7 @@ const Products = (props) => {
     const { state, addToCart } = props;
     const { currentUser } = state
     const { categories } = currentUser;
+    console.log(currentUser);
     const productList = categories.filter(categoryTypes => categoryTypes.isChecked).map(product => product['products']).flat();
     const productStack = productList.map(productStackItem => {
         return (
